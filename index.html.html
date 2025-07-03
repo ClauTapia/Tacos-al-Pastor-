@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tacos al Pastor - Escuela Secundaria Bicentenario</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f1e9;
+            color: #5c3a21;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #e67e22;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+        h2 {
+            color: #d35400;
+            text-align: center;
+            margin-top: 0;
+            font-size: 1.2em;
+        }
+        .taco-img {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin: 15px 0;
+            border: 3px solid #e67e22;
+        }
+        .team {
+            background-color: #fdebd0;
+            padding: 10px;
+            border-radius: 8px;
+            margin: 15px 0;
+            text-align: center;
+        }
+        .ingredients {
+            background-color: #eaf2f8;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        .rating-section {
+            text-align: center;
+            margin: 25px 0;
+            padding: 15px;
+            background-color: #f5eef8;
+            border-radius: 8px;
+        }
+        .rating {
+            font-size: 30px;
+            margin: 15px 0;
+        }
+        .star {
+            cursor: pointer;
+            color: #ccc;
+        }
+        .star:hover, .star.active {
+            color: #f1c40f;
+        }
+        #rating-message {
+            font-weight: bold;
+            color: #27ae60;
+            margin-top: 10px;
+            font-size: 18px;
+        }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>¡Tacos al Pastor!</h1>
+        <h2>Escuela Secundaria Bicentenario de la Independencia</h2>
+        
+        <img src="https://images.unsplash.com/photo-1615870216519-2f9fa575fa5c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Tacos al pastor" class="taco-img">
+        
+        <div class="team">
+            <h3>Equipo:</h3>
+            <p>Antonio, Gonzalo, Galo</p>
+        </div>
+        
+        <div class="ingredients">
+            <h3>¿Qué llevan nuestros tacos?</h3>
+            <ul>
+                <li>Doble tortilla</li>
+                <li>Cebolla fresca</li>
+                <li>Cilantro picado</li>
+                <li>Piña caramelizada</li>
+                <li>Salsa de tu preferencia</li>
+            </ul>
+        </div>
+        
+        <div class="rating-section">
+            <h3>¿Qué te parecieron nuestros tacos?</h3>
+            <div class="rating">
+                <span class="star" data-value="1">★</span>
+                <span class="star" data-value="2">★</span>
+                <span class="star" data-value="3">★</span>
+                <span class="star" data-value="4">★</span>
+                <span class="star" data-value="5">★</span>
+            </div>
+            <div id="rating-message"></div>
+        </div>
+    </div>
+    
+    <footer>
+        Proyecto escolar - Todos los derechos reservados &copy; 2025
+    </footer>
+
+    <script>
+        const stars = document.querySelectorAll('.star');
+        const ratingMessage = document.getElementById('rating-message');
+        let currentRating = 0;
+
+        stars.forEach(star => {
+            star.addEventListener('click', function() {
+                const value = parseInt(this.getAttribute('data-value'));
+                currentRating = value;
+                
+                // Actualizar estrellas
+                stars.forEach(s => {
+                    s.classList.toggle('active', parseInt(s.getAttribute('data-value')) <= value);
+                });
+                
+                // Mostrar mensaje personalizado según la calificación
+                const messages = [
+                    "",
+                    "¡Oh no! Lo sentimos mucho 😢",
+                    "Haremos lo posible por mejorar 👍",
+                    "¡Gracias! Seguiremos mejorando 😊",
+                    "¡Genial! Nos alegra que te gustaron 🎉",
+                    "¡Increíble! Eres nuestro cliente favorito ❤️"
+                ];
+                ratingMessage.textContent = messages[value];
+                
+                // Aquí podrías guardar la calificación en una base de datos
+                console.log('Calificación enviada:', value);
+            });
+            
+            star.addEventListener('mouseover', function() {
+                const value = parseInt(this.getAttribute('data-value'));
+                stars.forEach(s => {
+                    const starValue = parseInt(s.getAttribute('data-value'));
+                    s.style.color = starValue <= value ? '#f1c40f' : '#ccc';
+                });
+            });
+            
+            star.addEventListener('mouseout', function() {
+                stars.forEach(s => {
+                    const starValue = parseInt(s.getAttribute('data-value'));
+                    s.style.color = starValue <= currentRating ? '#f1c40f' : '#ccc';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
